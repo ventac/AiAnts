@@ -1,0 +1,26 @@
+GUI: On peut écrire le programme au moins avec les fonctions en anglais
+
+GUI: Fonctionnement, comment j'imagine:
+    - la fourmis cherche dans tous les sens
+    \|/
+    -.-
+    /|\
+
+    Elle va dans celui avec la valeur la plus grande.
+    Si tous sont à 0, elle pick un randon et augmente son valeur de +1
+    Quand elle arrive à la nourriture, elle reviens en utilisant la meme
+    principe, et augmente de nouveau la valeur quand elle passe.
+
+    La prochaine va repeter la meme procedure
+
+    Fonctions/Bibliotheques importantes
+    Random : Pour pouvoir choisir l'une apres l'autre, pour 
+    définir la position de la nourriture après elle est finie
+    System : Pour pouvoir faire un cls (clear screen)
+
+    Fonctionnalités à ajouter: 
+        Le trace d'hormone s'efface en 0,1 a chaque mouvement (SUPER IMPORTANT
+        d'ajouter cette fonctionnalité depuis le début, elle va permettre la fourmis
+        de choisir le chemin le plus court).
+        La nourriture se réduis à chaque fois qu'une fourmis
+        la touche

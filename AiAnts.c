@@ -1,5 +1,6 @@
 #include <stdio.h>
 // Définition des dimensions du tableau
+
 #define X_TABLEAU 8
 #define Y_TABLEAU 8
 
