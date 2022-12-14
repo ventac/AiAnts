@@ -1,3 +1,12 @@
+GUI = Guilherme
+ARW = Arwen
+
+Comment on peut divisér les taches pour travailler au meme temps?
+TODO:
+* Rechercher et imaginer Fonctionnement
+* Reunion pour definir comment sera le projet
+* On define les fonction qu'on va creer (ex: ResetTable, mouvement fourmis, etc)
+
 GUI: On peut écrire le programme au moins avec les fonctions en anglais
 
 GUI: Fonctionnement, comment j'imagine:
