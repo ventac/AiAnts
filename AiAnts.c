@@ -1,4 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>  // Pour pouvoir effacer la console
+// Fonction sleep
+//#include <windows.h> // Pour Windows
+#include <unistd.h>  // Pour Linux (Et mac?)
+// TODO: Verifier comment détecter automatiquement le S.O.
+
 //#include <system>
 // Définition des dimensions du tableau
 #define COL_QTT 8
@@ -26,12 +32,16 @@ void FillTable(/*int * tableau[][]*/){
 
 // Afficher le tableau
 void ShowTable(){
+    //system("cls");  // Windows
+    system("clear");  //*nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             printf("%d \t", table[ligne][col]);
         }
         printf("\n");
     }
+    sleep(1);  // "Buffer" //
+    // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
 
 
@@ -116,19 +126,17 @@ int main(void){
     // Fourmis réprésenté par le No 8
     table[y_ini][x_ini] = F;
 
-    ShowTable();
-    MoveAnt(1,&x_ant,&y_ant);
-    ShowTable();
-    MoveAnt(2,&x_ant,&y_ant);
-    ShowTable();
-    MoveAnt(2,&x_ant,&y_ant);
-    ShowTable();
-    MoveAnt(7,&x_ant,&y_ant);
-    ShowTable();
+    
+    for (int i = 0; i < 12; i++){
+        // Nbre alèatoire de 1 a 9
+        // 9 = pas de mouvement
+        int nb = rand() % 9 + 1;
 
+        ShowTable();
+        MoveAnt(nb,&x_ant,&y_ant);
+        ShowTable();
 
-
-
+    }
 }
 
 
