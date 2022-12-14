@@ -47,44 +47,51 @@ void DryTrace();
 // TODO :  Ajouter ça dans une Structure ant
 // Futurement: void MoveAnt(int direction, ant ant, pris nourriture? TRUE/FALSE -> Augmente le
 // score/ qtt trace)
-void MoveAnt(int direction, int x_ant, int y_ant){    
+void MoveAnt(int direction, int **x_ant, int **y_ant){    
 
     // TODO : Eviter contact avec le mur
     // Modifier la valeur de x et y (-1) pour éviter que ça dépasse
     // sinon, changer direction
     // sinon, rester dans default jusqu'au prochain boucle
 
-    LeaveTrace(x_ant,y_ant);
+    LeaveTrace(**x_ant,**y_ant);
 
     switch (direction)
     {
     case 1: // ↑                
-        table[y_ant - 1][x_ant] = F;  // La bouger
+        **y_ant -= 1;// La bouger
         break;
     case 2: // ⬈
-        table[y_ant - 1][x_ant + 1] = F;  
+        **y_ant -= 1;
+        **x_ant += 1;  
         break;
     case 3: // →
-        table[y_ant][x_ant + 1] = F;  
+        **x_ant += 1;  
         break;
     case 4: // ⬊
-        table[y_ant + 1][x_ant + 1] = F;  
+        **y_ant += 1;
+        **x_ant += 1;  
         break;
     case 5: // ↓
-        table[y_ant + 1][x_ant] = F;  
+        **y_ant += 1;
         break;
     case 6: // ⬋
-        table[y_ant + 1][x_ant - 1] = F; 
+        **y_ant += 1;
+        **x_ant -= 1; 
         break;
     case 7: // ←
-        table[y_ant][x_ant - 1] = F;  
+        **x_ant -= 1;  
         break;
     case 8: // ⬉
-        table[y_ant - 1][x_ant - 1] = F;  
+        **y_ant -= 1;
+        **x_ant -= 1;  
         break; 
     default:
         break;
     }
+
+    // La bouger effectivement;
+    table[**y_ant][**x_ant] = F;
 }
 
 
@@ -100,15 +107,28 @@ int main(void){
 
 
     // Position initielle fourmis: base gauche tableau |_
-    int y_ant = ROW_QTT - 1, // -1 parce que la taille totale est de 8 et ça commence par 0
-        x_ant = 0;
+    int y_ini = ROW_QTT - 1, // -1 parce que la taille totale est de 8 et ça commence par 0
+        x_ini = 0;
+    
+    int* y_ant = &y_ini,
+       * x_ant = &x_ini;
 
     // Fourmis réprésenté par le No 8
-    table[y_ant][x_ant] = F;
+    table[y_ini][x_ini] = F;
 
     ShowTable();
-    MoveAnt(1,x_ant,y_ant);
+    MoveAnt(1,&x_ant,&y_ant);
     ShowTable();
+    MoveAnt(2,&x_ant,&y_ant);
+    ShowTable();
+    MoveAnt(2,&x_ant,&y_ant);
+    ShowTable();
+    MoveAnt(7,&x_ant,&y_ant);
+    ShowTable();
+
+
+
+
 }
 
 
