@@ -9,7 +9,8 @@ void ShowTable(){
             if (table[ligne][col] == F){
                 printf("🐜\tTEST");
             }
-            printf("%d\t", table[ligne][col]);
+            else
+                printf("%d\t", table[ligne][col]);
         }
         printf("\n");
     }
