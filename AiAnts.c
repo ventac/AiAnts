@@ -3,6 +3,10 @@
 // Fonction sleep
 //#include <windows.h> // Pour Windows
 #include <unistd.h>  // Pour Linux (Et mac?)
+
+// print the table with ant and path
+#include "Buffer.h"
+
 // TODO: Verifier comment détecter automatiquement le S.O.
 #include "Ant.h"
 
