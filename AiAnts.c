@@ -3,6 +3,10 @@
 // Fonction sleep
 //#include <windows.h> // Pour Windows
 #include <unistd.h>  // Pour Linux (Et mac?)
+
+// print the table with ant and path
+#include "Buffer.h"
+
 // TODO: Verifier comment détecter automatiquement le S.O.
 #include "AiAnts.h"
 #include "Ant.h"
@@ -34,12 +38,10 @@ void FillTable(/*int * tableau[][]*/){
 }
 /*
 
-
-*/
 // Afficher le tableau
 void ShowTable(){
     //system("cls");  // Windows
-    system("clear");  //*nix (Mac aussi?)
+    system("clear");  //nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             if (table[ligne][col] == F){
@@ -52,7 +54,7 @@ void ShowTable(){
     sleep(1);  // "Buffer" //
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
-
+*/
 
 // Où la fourmis va laisser son trace
 void LeaveTrace(int x, int y){
@@ -65,10 +67,17 @@ void DryTrace();
 // Code principal
 int main(void){
 
+    // creating and giving the memory for the map
+    int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
+    for(int i = 0 ; i < COL_QTT ; i++)
+        map[i] = malloc(COL_QTT * sizeof(int)); //largeur
+
 
     FillTable();
-    ShowTable();
-    
+    //ShowTable();
+
+
+
     // Pour tester, la position initielle sera le coin inférieur gauche (8,0)
     // et l'objectif sera le coin supérieur droite (0,8)
 
@@ -89,9 +98,9 @@ int main(void){
         // 9 = pas de mouvement
         int nb = rand() % 9 + 1;
 
-        ShowTable();
+        //ShowTable();
         MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable();
+        ShowTable(&table,ROW_QTT,ROW_QTT);
 
     }
 }
