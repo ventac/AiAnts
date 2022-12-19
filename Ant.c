@@ -1,9 +1,11 @@
-#include <AiAnts.c>
+#include "Ant.h"
+#include "AiAnts.h"
+
 // Random va définir la direction au début
 // TODO :  Ajouter ça dans une Structure ant
 // Futurement: void MoveAnt(int direction, ant ant, pris nourriture? TRUE/FALSE -> Augmente le
 // score/ qtt trace)
-void MoveAnt(int direction, int **x_ant, int **y_ant){    
+void MoveAnt(int direction, int **x_ant, int **y_ant, int **table[ROW_QTT],[COL_QTT]){    
 
     // TODO : Eviter contact avec le mur
     // Modifier la valeur de x et y (-1) pour éviter que ça dépasse
