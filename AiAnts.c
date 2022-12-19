@@ -1,20 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>  // Pour pouvoir effacer la console
 // Fonction sleep
-//#include <windows.h> // Pour Windows
-#include <unistd.h>  // Pour Linux (Et mac?)
-
-// print the table with ant and path
-#include "Buffer.h"
+    //#include <windows.h> // Pour Windows
+    #include <unistd.h>  // Pour Linux (Et mac?)
+#include "Buffer.h"  // print the table with ant and path
 #include "AiAnts.h"
 #include "Ant.h"
-
-
-//#include <system>
-// Définition des dimensions du tableau
-#define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
-#define QTT_ANTC 1
-
 
 // On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
 // dans des "Objets" si ça c'est possible en C, comme Obj Fourmis (move ant, AntPosition),
@@ -67,7 +58,7 @@ int main(void){
 
     // creating and giving the memory for the map
     int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
-    for(int i = 0 ; i < COL_QTT ; i++)
+    for(int i = 0 ; i < ROW_QTT ; i++)
         map[i] = malloc(COL_QTT * sizeof(int)); //largeur
 
 
@@ -88,7 +79,7 @@ int main(void){
        * x_ant = &x_ini;
 
     // Fourmis réprésenté par le No 8
-    table[y_ini][x_ini] = F;
+    table[y_ini][x_ini] = ANT;
 
     
     for (int i = 0; i < 12; i++){
