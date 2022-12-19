@@ -7,10 +7,7 @@
 #include <unistd.h>  // Pour Linux (Et mac?)
 
 
-#define COL_QTT 8
-#define ROW_QTT 8
-#define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
-#define QTT_ANTC 1
+
 
 void ShowTable(int **map,int row,int col);
 void FillTable(int **map,int row,int col);

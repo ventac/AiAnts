@@ -28,7 +28,9 @@ int table[ROW_QTT][COL_QTT];
 
 // Remplir le tableau avec 1 partout
 // TODO : Ajouter d'autres chiffres pour répresenter der murs/chemins plus complexes
-void FillTable(/*int * tableau[][]*/){
+
+/*
+void FillTable(){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             table[ligne][col] = 0;
@@ -36,6 +38,7 @@ void FillTable(/*int * tableau[][]*/){
     }
     //return tableau;
 }
+*/
 /*
 
 // Afficher le tableau
@@ -99,7 +102,7 @@ int main(void){
         int nb = rand() % 9 + 1;
 
         //ShowTable();
-        MoveAnt(nb,&x_ant,&y_ant);
+        //MoveAnt(nb,&x_ant,&y_ant);
         ShowTable(map,ROW_QTT,ROW_QTT);
 
     }
