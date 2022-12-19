@@ -7,8 +7,6 @@
 
 // print the table with ant and path
 
-
-// TODO: Verifier comment détecter automatiquement le S.O.
 #include "AiAnts.h"
 #include "Ant.h"
 #include "Buffer.h"
