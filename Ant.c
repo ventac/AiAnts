@@ -12,7 +12,7 @@ void MoveAnt(int direction, int **x_ant, int **y_ant, int **table[ROW_QTT][COL_Q
     // sinon, changer direction
     // sinon, rester dans default jusqu'au prochain boucle
 
-    LeaveTrace(**x_ant,**y_ant, **table[ROW_QTT][COL_QTT]);
+    LeaveTrace(**x_ant,**y_ant, table);  // -1 pour pas dépasser la taille du tableau
 
     switch (direction)
     {
@@ -54,5 +54,5 @@ void MoveAnt(int direction, int **x_ant, int **y_ant, int **table[ROW_QTT][COL_Q
 
 // Où la fourmis va laisser son trace
 void LeaveTrace(int x, int y, int **table[ROW_QTT][COL_QTT]){
-    **table[y][x] = table[y][x] - ANT + 1; // Efface la fourmis et ajoute la qtt
+    **table[y][x] = **table[y][x] - ANT + 1; // Efface la fourmis et ajoute la qtt
 }
