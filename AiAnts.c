@@ -121,7 +121,7 @@ int main(void){
 
 
     FillTable();
-    ShowTable();
+    //ShowTable();
     
     // Pour tester, la position initielle sera le coin inférieur gauche (8,0)
     // et l'objectif sera le coin supérieur droite (0,8)
