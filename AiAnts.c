@@ -73,7 +73,7 @@ int main(void){
         map[i] = malloc(COL_QTT * sizeof(int)); //largeur
 
 
-    FillTable();
+    FillTable(map,ROW_QTT,ROW_QTT);
     //ShowTable();
 
 
@@ -100,7 +100,7 @@ int main(void){
 
         //ShowTable();
         MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable(&table,ROW_QTT,ROW_QTT);
+        ShowTable(map,ROW_QTT,ROW_QTT);
 
     }
 }
