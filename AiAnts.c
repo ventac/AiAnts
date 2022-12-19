@@ -9,7 +9,8 @@
 // Définition des dimensions du tableau
 #define COL_QTT 8
 #define ROW_QTT 8
-#define F 8  // ça va répresenter numériquement la fourmis, on peut changer après par -1
+#define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
+
 
 // On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
 // dans des "Objets" si ça c'est possible en C, comme Obj Fourmis (move ant, AntPosition),
@@ -29,14 +30,20 @@ void FillTable(/*int * tableau[][]*/){
     }
     //return tableau;
 }
+/*
 
+
+*/
 // Afficher le tableau
 void ShowTable(){
     //system("cls");  // Windows
     system("clear");  //*nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
-            printf("%d \t", table[ligne][col]);
+            if (table[ligne][col] == F){
+                printf("🐜\t");
+            }
+            printf("%d\t", table[ligne][col]);
         }
         printf("\n");
     }
