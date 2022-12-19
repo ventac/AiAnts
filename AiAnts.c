@@ -6,8 +6,6 @@
 
 // print the table with ant and path
 #include "Buffer.h"
-
-// TODO: Verifier comment détecter automatiquement le S.O.
 #include "AiAnts.h"
 #include "Ant.h"
 
@@ -60,11 +58,6 @@ void ShowTable(){
 */
 
 
-
-// Où la fourmis va laisser son trace
-void LeaveTrace(int x, int y){
-    table[y][x] = table[y][x] - 8 + 1; // Efface la fourmis et ajoute la qtt
-}
 
 // "Secher" ou la fourmis a passé dans chaque tour
 void DryTrace();
