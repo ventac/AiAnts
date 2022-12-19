@@ -145,7 +145,7 @@ int main(void){
 
         ShowTable();
         MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable();
+        ShowTable(table[ROW_QTT][ROW_QTT],ROW_QTT,ROW_QTT);
 
     }
 }

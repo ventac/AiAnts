@@ -5,12 +5,13 @@
 // Fonction sleep
 //#include <windows.h> // Pour Windows
 #include <unistd.h>  // Pour Linux (Et mac?)
+
+
 #define COL_QTT 8
 #define ROW_QTT 8
 #define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
 #define QTT_ANTC 1
-int table[ROW_QTT][COL_QTT];
 
-void ShowTable();
+void ShowTable(int cells[],int row,int col);
 
 #endif
