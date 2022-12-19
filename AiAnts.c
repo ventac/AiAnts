@@ -4,12 +4,14 @@
 //#include <windows.h> // Pour Windows
 #include <unistd.h>  // Pour Linux (Et mac?)
 // TODO: Verifier comment détecter automatiquement le S.O.
+#include "Ant.h"
 
 //#include <system>
 // Définition des dimensions du tableau
 #define COL_QTT 8
 #define ROW_QTT 8
 #define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
+#define QTT_ANTC 1
 
 
 // On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
@@ -85,10 +87,10 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
     case 3: // →
         **x_ant += 1;  
         break;
-    case 4: // ⬊
+    /*case 4: // ⬊
         **y_ant += 1;
         **x_ant += 1;  
-        break;
+        break;*/
     case 5: // ↓
         **y_ant += 1;
         break;
