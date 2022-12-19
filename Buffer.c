@@ -2,7 +2,7 @@
 
 
 // Afficher le tableau
-void ShowTable(int *cells[],int row,int col){
+void ShowTable(int cells[][],int row,int col){
     //system("cls");  // Windows
     system("clear");  //nix (Mac aussi?)
     for (int ligne = 0; ligne < row; ligne++){

@@ -119,10 +119,17 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
 // Code principal
 int main(void){
 
+    // creating and giving the memory for the map
+    int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
+    for(int i = 0 ; i < COL_QTT ; i++)
+        map[i] = malloc(COL_QTT * sizeof(int)); //largeur
+
 
     FillTable();
     //ShowTable();
-    
+
+
+
     // Pour tester, la position initielle sera le coin inférieur gauche (8,0)
     // et l'objectif sera le coin supérieur droite (0,8)
 

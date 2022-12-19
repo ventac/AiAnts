@@ -12,6 +12,6 @@
 #define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
 #define QTT_ANTC 1
 
-void ShowTable(int cells[],int row,int col);
+void ShowTable(int cells[][],int row,int col);
 
 #endif
