@@ -103,7 +103,7 @@ int main(void){
 
         //ShowTable();
         //MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable(map,ROW_QTT,ROW_QTT);
+        ShowTable(map,ROW_QTT,COL_QTT);
 
     }
 }
