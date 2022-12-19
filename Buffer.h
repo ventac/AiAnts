@@ -6,9 +6,6 @@
 //#include <windows.h> // Pour Windows
 #include <unistd.h>  // Pour Linux (Et mac?)
 
-
-
-
 void ShowTable(int **map,int row,int col);
 void FillTable(int **map,int row,int col);
 

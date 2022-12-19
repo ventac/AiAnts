@@ -59,6 +59,8 @@ void ShowTable(){
 }
 */
 
+
+
 // Où la fourmis va laisser son trace
 void LeaveTrace(int x, int y){
     table[y][x] = table[y][x] - 8 + 1; // Efface la fourmis et ajoute la qtt

@@ -25,5 +25,4 @@ void FillTable(int **cells,int row,int col){
             cells[ligne][colone] = 0;
         }
     }
-    //return tableau;
 }
