@@ -3,7 +3,7 @@
 // Afficher le tableau
 void ShowTable(){
     //system("cls");  // Windows
-    system("clear");  //*nix (Mac aussi?)
+    system("clear");  //nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             if (table[ligne][col] == F){
