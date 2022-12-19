@@ -143,7 +143,7 @@ int main(void){
         // 9 = pas de mouvement
         int nb = rand() % 9 + 1;
 
-        ShowTable();
+        //ShowTable();
         MoveAnt(nb,&x_ant,&y_ant);
         ShowTable(table[ROW_QTT][ROW_QTT],ROW_QTT,ROW_QTT);
 
