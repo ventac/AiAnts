@@ -41,7 +41,7 @@ void ShowTable(){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             if (table[ligne][col] == F){
-                printf("🐜\t");
+                printf("🐜\tTEST");
             }
             printf("%d\t", table[ligne][col]);
         }
