@@ -44,11 +44,10 @@ struct Tile{
 // Code principal
 int main(void){
 
-    // creating and giving the memory for the map
-    struct Tile *map[ROW_QTT];
-    int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
-    for(int i = 0 ; i < ROW_QTT ; i++)
-        map[i] = malloc(COL_QTT * sizeof(int)); //largeur
+    // creating the map
+    struct Tile map[ROW_QTT][COL_QTT];
+
+
 
     FillTable(map);
 
@@ -76,7 +75,7 @@ int main(void){
         int nb = rand() % 9 + 1;
         //ShowTable();
         //MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable(map);
+        //ShowTable(map);
 
     }
 }
