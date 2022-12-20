@@ -1,3 +1,5 @@
+#ifndef AIANTS_H
+#define AIANTS_H
 #include <stdio.h>
 #include <stdlib.h>  // Pour pouvoir effacer la console
 // Fonction sleep
@@ -12,7 +14,7 @@
 #define QTT_ANTC 1
 
 // struct for ants
-struct Ant{
+struct Ants{
     int direction; // where is the head pointing? +x, -x, +y, -y
     int pher_toFood; // number of pheromones left when going to pick food
     int pher_toHome; // number of pheromones left when going back home
@@ -27,3 +29,4 @@ struct Tile{
     int num_toHome; // number of pheromones on the tile when going back home
     bool obstacle; // True if there's an obstacle on the tile
 };
+#endif
