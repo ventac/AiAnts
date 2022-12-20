@@ -12,4 +12,8 @@
 void ShowTable(int **map);
 void FillTable(int **map);
 
+
+
+
+
 #endif

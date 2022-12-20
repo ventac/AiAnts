@@ -25,3 +25,23 @@ void FillTable(int **map){
         }
     }
 }
+
+
+//////// TEST GUI
+
+// Afficher le tableau
+void ShowTable(int **cells){
+    //system("cls");  // Windows
+    system("clear");  //nix (Mac aussi?)
+    for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int col = 0; col < COL_QTT; col++){
+            if (cells[ligne][col] == ANT){
+                printf("🐜\tTEST");
+            }
+            printf("%d\t",cells[ligne][col]);
+        }
+        printf("\n");
+    }
+    sleep(1);  // "Buffer" //
+    // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
+}
