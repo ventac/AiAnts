@@ -1,12 +1,12 @@
 #include "Buffer.h"
 
 // Afficher le tableau
-void ShowTable(int **map,int row,int col){
+void ShowTable(int **map){
     //system("cls");  // Windows
     system("clear");  //nix (Mac aussi?)
-    for (int ligne = 0; ligne < row; ligne++){
-        for (int colone = 0; colone < col; colone++){
-            if (map[ligne][colone] == 8){
+    for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int colone = 0; colone < COL_QTT; colone++){
+            if (map[ligne][colone] == ANT){
                 printf("🐜\tTEST");
             }
             else
@@ -18,9 +18,9 @@ void ShowTable(int **map,int row,int col){
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
 
-void FillTable(int **map,int row,int col){
-    for (int ligne = 0; ligne < row; ligne++){
-        for (int colone = 0; colone < col; col++){
+void FillTable(int **map){
+    for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int colone = 0; colone < COL_QTT; colone++){
             map[ligne][colone] = 0;
         }
     }
