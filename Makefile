@@ -1,3 +1,3 @@
-all: AiAnts.h Buffer.h Ant.h AiAnts.c Buffer.c Ant.c
-	gcc -Wall AiAnts.c Buffer.c Ant.c -o AiAnts
+all: AiAnts.h Buffer.h Ant.h mainArwen.c Buffer.c Ant.c
+	gcc -Wall mainArwen.c Buffer.c Ant.c -o AiAnts
 	./AiAnts
