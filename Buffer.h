@@ -8,9 +8,9 @@
 #include <unistd.h>  // Pour Linux (Et mac?)
 #include "AiAnts.h"
 
-void ShowTable(int **map,int row,int col);
-//void ShowTable(int **map);
-void FillTable(int **map,int row,int col);
+
+void ShowTable(int **map);
+void FillTable(int **map);
 
 
 

@@ -11,54 +11,15 @@
 #include "Ant.h"
 
 
+/*
 //#include <system>
 // Définition des dimensions du tableau
 #define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
 #define QTT_ANTC 1
-
-
-// On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
-// dans des "Objets" si ça c'est possible en C, comme Obj Fourmis (move ant, AntPosition),
-// Obj nourriture 
-// (qtt nourriture)
-
-// Déclaration en globale pour l'instant
-int table[ROW_QTT][COL_QTT];
-
-// Remplir le tableau avec 1 partout
-// TODO : Ajouter d'autres chiffres pour répresenter der murs/chemins plus complexes
-
-/*
-void FillTable(){
-    for (int ligne = 0; ligne < ROW_QTT; ligne++){
-        for (int col = 0; col < COL_QTT; col++){
-            table[ligne][col] = 0;
-        }
-    }
-    //return tableau;
-}
+#define COL_QTT 8
+#define ROW_QTT 8
+#define ANT 500
 */
-/*
-
-// Afficher le tableau
-void ShowTable(){
-    //system("cls");  // Windows
-    system("clear");  //nix (Mac aussi?)
-    for (int ligne = 0; ligne < ROW_QTT; ligne++){
-        for (int col = 0; col < COL_QTT; col++){
-            if (table[ligne][col] == F){
-                printf("🐜\tTEST");
-            }
-            printf("%d\t", table[ligne][col]);
-        }
-        printf("\n");
-    }
-    sleep(1);  // "Buffer" //
-    // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
-}
-*/
-
-
 
 // Code principal
 int main(void){
@@ -68,6 +29,7 @@ int main(void){
     for(int i = 0 ; i < ROW_QTT ; i++)
         map[i] = malloc(COL_QTT * sizeof(int)); //largeur
 
+    FillTable(map);
 
     FillTable(map,ROW_QTT,ROW_QTT);
     //ShowTable();
@@ -93,7 +55,7 @@ int main(void){
         int nb = rand() % 9 + 1;
         //ShowTable();
         //MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable(map,ROW_QTT,COL_QTT);
+        ShowTable(map);
 
     }
 }
