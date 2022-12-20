@@ -1,7 +1,7 @@
 #include "Buffer.h"
 
 // Afficher le tableau
-void ShowTable(int **map){
+void ShowTable(struct Tile *map){
     //system("cls");  // Windows
     system("clear");  //nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
@@ -18,7 +18,7 @@ void ShowTable(int **map){
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
 
-void FillTable(int **map){
+Tile FillTable(struct Tile *map){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int colone = 0; colone < COL_QTT; colone++){
             map[ligne][colone] = 0;
