@@ -7,14 +7,14 @@ void ShowTable(struct map){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int colone = 0; colone < COL_QTT; colone++){
             if (map[ligne][colone] == ANT){
-                printf("🐜\tTEST");
+                printf("🐜\t");
             }
             else
                 printf("%d\t", map[ligne][colone]);
         }
         printf("\n");
     }
-    sleep(1);  // "Buffer" //
+    sleep(2);  // "Buffer" //
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
 

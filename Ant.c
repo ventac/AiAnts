@@ -5,7 +5,7 @@
 // TODO :  Ajouter ça dans une Structure ant
 // Futurement: void MoveAnt(int direction, ant ant, pris nourriture? TRUE/FALSE -> Augmente le
 // score/ qtt trace)
-void MoveAnt(int direction, int **x_ant, int **y_ant, int **table[ROW_QTT][COL_QTT]){    
+void MoveAnt(int direction, int **x_ant, int **y_ant, int **table){    
 
     // TODO : Eviter contact avec le mur
     // Modifier la valeur de x et y (-1) pour éviter que ça dépasse
@@ -19,40 +19,24 @@ void MoveAnt(int direction, int **x_ant, int **y_ant, int **table[ROW_QTT][COL_Q
     case 1: // ↑                
         **y_ant -= 1;// La bouger
         break;
-    case 2: // ⬈
-        **y_ant -= 1;
+    case 2: // →
         **x_ant += 1;  
         break;
-    case 3: // →
-        **x_ant += 1;  
-        break;
-    /*case 4: // ⬊
-        **y_ant += 1;
-        **x_ant += 1;  
-        break;*/
-    case 5: // ↓
+    case 3: // ↓
         **y_ant += 1;
         break;
-    case 6: // ⬋
-        **y_ant += 1;
-        **x_ant -= 1; 
-        break;
-    case 7: // ←
+    case 4: // ←
         **x_ant -= 1;  
         break;
-    case 8: // ⬉
-        **y_ant -= 1;
-        **x_ant -= 1;  
-        break; 
     default:
         break;
     }
 
     // La bouger effectivement;
-    **table[**y_ant][**x_ant] = ANT;
+    table[**y_ant][**x_ant] = ANT;
 }
 
 // Où la fourmis va laisser son trace
-void LeaveTrace(int x, int y, int **table[ROW_QTT][COL_QTT]){
-    **table[y][x] = **table[y][x] - ANT + 1; // Efface la fourmis et ajoute la qtt
+void LeaveTrace(int x, int y, int **table){
+    table[y][x] = table[y][x] - ANT + 1; // Efface la fourmis et ajoute la qtt
 }
