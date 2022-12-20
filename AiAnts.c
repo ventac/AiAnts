@@ -45,9 +45,9 @@ struct Tile{
 int main(void){
 
     // creating and giving the memory for the map
-    int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
+    struct Tile *map[ROW_QTT];
     for(int i = 0 ; i < ROW_QTT ; i++)
-        map[i] = malloc(COL_QTT * sizeof(int)); //largeur
+        map[i] = malloc(COL_QTT * sizeof(struct Tile)); //largeur
 
     FillTable(map);
 
