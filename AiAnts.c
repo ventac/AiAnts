@@ -10,6 +10,7 @@
 
 #include "AiAnts.h"
 #include "Ant.h"
+#include "Buffer.h"
 
 
 /*
@@ -50,7 +51,7 @@ int main(void){
 
     FillTable(map);
 
-    FillTable(map,ROW_QTT,ROW_QTT);
+    //FillTable(map,ROW_QTT,ROW_QTT);
     //ShowTable();
 
 
@@ -67,7 +68,7 @@ int main(void){
        * x_ant = &x_ini;
 
     // Fourmis réprésenté par le No 8
-    table[y_ini][x_ini] = F;
+    // table[y_ini][x_ini] = F;
 
     
     for (int i = 0; i < 12; i++){
