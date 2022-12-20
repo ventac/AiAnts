@@ -17,12 +17,12 @@ void ShowTable(struct Tile *map){
     sleep(2);  // "Buffer" //
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
-
-Tile FillTable(struct Tile *map){
+/*
+struct Tile FillTable(struct Tile *map){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int colone = 0; colone < COL_QTT; colone++){
             map[ligne][colone] = 0;
         }
     }
 }
-
+*/
