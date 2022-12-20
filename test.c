@@ -1,4 +1,4 @@
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>  // Pour pouvoir effacer la console
 // Fonction sleep
 //#include <windows.h> // Pour Windows
@@ -26,4 +26,4 @@ int main(){
     FillTable(*map,ROW_QTT,COL_QTT);
     
 
-}
+}*/
