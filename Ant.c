@@ -19,31 +19,15 @@ void MoveAnt(int direction, int **x_ant, int **y_ant, int **table[ROW_QTT][COL_Q
     case 1: // ↑                
         **y_ant -= 1;// La bouger
         break;
-    case 2: // ⬈
-        **y_ant -= 1;
+    case 2: // →
         **x_ant += 1;  
         break;
-    case 3: // →
-        **x_ant += 1;  
-        break;
-    /*case 4: // ⬊
-        **y_ant += 1;
-        **x_ant += 1;  
-        break;*/
-    case 5: // ↓
+    case 3: // ↓
         **y_ant += 1;
         break;
-    case 6: // ⬋
-        **y_ant += 1;
-        **x_ant -= 1; 
-        break;
-    case 7: // ←
+    case 4: // ←
         **x_ant -= 1;  
         break;
-    case 8: // ⬉
-        **y_ant -= 1;
-        **x_ant -= 1;  
-        break; 
     default:
         break;
     }

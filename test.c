@@ -12,14 +12,18 @@
 
 
 int main(){
+   
+    //int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
+    //for(int i = 0 ; i < ROW_QTT ; i++)
+    //    map[i] = malloc(COL_QTT * sizeof(int)); //largeur
+
     
-    int **map = (int**) malloc(ROW_QTT * sizeof(int*));//hauteur
-    for(int i = 0 ; i < ROW_QTT ; i++)
-        map[i] = malloc(COL_QTT * sizeof(int)); //largeur
+    int map[ROW_QTT][COL_QTT];
+    int *p;
+    
+    p = map;
 
-    int **table[ROW_QTT][COL_QTT];
-
-    FillTable(**table,ROW_QTT,COL_QTT);
+    FillTable(*map,ROW_QTT,COL_QTT);
     
 
 }
