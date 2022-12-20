@@ -31,6 +31,13 @@ int main(void){
     // creating the map
     struct Tile map[ROW_QTT][COL_QTT];
 
+    int n = 1; // number of ants on the map at once
+    // list containing all ants
+    struct Ants pos[n];
+
+    pos[0].pos_x = 0;
+    pos[0].pos_y = 0;
+
 
 
     FillTable(map);
