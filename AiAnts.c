@@ -15,6 +15,10 @@
 // Définition des dimensions du tableau
 #define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
 #define QTT_ANTC 1
+#define COL_QTT 8
+#define ROW_QTT 8
+#define ANT 500
+
 
 // Code principal
 int main(void){
