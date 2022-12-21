@@ -18,8 +18,6 @@
 // Obj nourriture 
 // (qtt nourriture)
 
-// Déclaration en globale pour l'instant
-int table[ROW_QTT][COL_QTT];
 
 // Remplir le tableau avec 1 partout
 // TODO : Ajouter d'autres chiffres pour répresenter der murs/chemins plus complexes
