@@ -40,4 +40,5 @@ GUI: Fonctionnement, comment j'imagine:
     Valeur de la fourmis : -1, stocker valeur précédente dans la mémoire.
 
 
-    
+GUI : J'ai trouvé ce lien le 15/12, explication très basique
+https://onestepcode.com/ant-colony-simulation/

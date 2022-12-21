@@ -5,12 +5,13 @@
 #include <unistd.h>  // Pour Linux (Et mac?)
 // TODO: Verifier comment détecter automatiquement le S.O.
 
-// Définition des dimensions du tableau
-#define COL_QTT 8
-#define ROW_QTT 8
-#define F 8  // ça va répresenter numériquement la fourmis, on peut changer après par -1
+#include "AiAnts.h"
+
+
 
 // TODO: Avant de prendre la nourriture, plus probable d'aller à la droite. Après, plus probable à gauche
+// TODO: La nourriture va changer de place et d'icone, pas la maison
+
 
 // On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
 // dans des "Objets" si ça c'est possible en C, comme Obj Fourmis (move ant, AntPosition),
@@ -37,14 +38,19 @@ void ShowTable(){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             if (table[ligne][col] == F){  // Afficher la fourmie où il y a la valeur de la fourmie
-                printf("@\t");
+                printf("🐜\t");
+            }else if(table[ligne][col] == FOOD){ // Nourriture 🍣 
+                printf("🍣\t");
+            }else if(table[ligne][col] == HOME){
+                printf("🏠\t");
             }else{
                 printf("%d\t", table[ligne][col]);
             }            
+            
         }
         printf("\n");
     }
-    sleep(0.7);  // "Buffer" Linux/Mac(?) 
+    sleep(1);  // "Buffer" Linux/Mac(?) 
     //sleep(1000);  // "Buffer" Windows
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
@@ -52,7 +58,7 @@ void ShowTable(){
 
 // Où la fourmis va laisser son trace
 void LeaveTrace(int x, int y){
-    table[y][x] = table[y][x] - 8 + 1; // Efface la fourmis et ajoute la qtt
+    table[y][x] = table[y][x] - F + 1; // Efface la fourmis et ajoute la qtt
 }
 
 // "Secher" ou la fourmis a passé dans chaque tour
@@ -62,6 +68,7 @@ void DryTrace();
 // TODO :  Ajouter ça dans une Structure ant
 // Futurement: void MoveAnt(int direction, ant ant, pris nourriture? TRUE/FALSE -> Augmente le
 // score/ qtt trace)
+// Mouvement pour chercher la nouriture. Après la trouver, elle va utiliser le trace pour rétourner
 void MoveAnt(int direction, int **x_ant, int **y_ant){    
 
     LeaveTrace(**x_ant,**y_ant);
@@ -137,20 +144,41 @@ int main(void){
     int* y_ant = &y_ini,
        * x_ant = &x_ini;
 
-    // Fourmis réprésenté par le No 8
+    // Position initielle nourriture
+    table[0][COL_QTT] = FOOD;
+
+    // Position initielle maison
+    table[y_ini][x_ini] = HOME;
+
+    // Placer la fourmie
     table[y_ini][x_ini] = F;
 
-    
+    // Chercher
+    // While foundFood == false
+    // int steps = 0;
+    // steps++;  // Compter la quantité de pas pour trouver le chemin le plus court et donner le bonus
+
     for (int i = 0; i < 50; i++){
         // Nbre alèatoire de 1 a 9
         // 9 = pas de mouvement
         int nb = rand() % 9 + 1;
 
+        // Enregistrer chaque nb dans un tableau
+        // Le moins de pas le plus de pounts pour les chiffres
+        // Chaque fois mieux, augmente la probabilité de répéter les pas
+
         ShowTable();
         MoveAnt(nb,&x_ant,&y_ant);
-        ShowTable();
+        ShowTable(); 
+    } 
+    // Retourner à la maison 
 
-    }
+
+
+
+
+
+
 }
 
 
