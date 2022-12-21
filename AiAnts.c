@@ -5,11 +5,12 @@
 #include <unistd.h>  // Pour Linux (Et mac?)
 // TODO: Verifier comment détecter automatiquement le S.O.
 
-//#include <system>
 // Définition des dimensions du tableau
 #define COL_QTT 8
 #define ROW_QTT 8
 #define F 8  // ça va répresenter numériquement la fourmis, on peut changer après par -1
+
+// TODO: Avant de prendre la nourriture, plus probable d'aller à la droite. Après, plus probable à gauche
 
 // On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
 // dans des "Objets" si ça c'est possible en C, comme Obj Fourmis (move ant, AntPosition),
@@ -27,7 +28,6 @@ void FillTable(/*int * tableau[][]*/){
             table[ligne][col] = 0;
         }
     }
-    //return tableau;
 }
 
 // Afficher le tableau
@@ -36,11 +36,16 @@ void ShowTable(){
     system("clear");  //*nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
-            printf("%d \t", table[ligne][col]);
+            if (table[ligne][col] == F){  // Afficher la fourmie où il y a la valeur de la fourmie
+                printf("@\t");
+            }else{
+                printf("%d\t", table[ligne][col]);
+            }            
         }
         printf("\n");
     }
-    sleep(1);  // "Buffer" //
+    sleep(0.7);  // "Buffer" Linux/Mac(?) 
+    //sleep(1000);  // "Buffer" Windows
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
 
@@ -59,17 +64,12 @@ void DryTrace();
 // score/ qtt trace)
 void MoveAnt(int direction, int **x_ant, int **y_ant){    
 
-    // TODO : Eviter contact avec le mur
-    // Modifier la valeur de x et y (-1) pour éviter que ça dépasse
-    // sinon, changer direction
-    // sinon, rester dans default jusqu'au prochain boucle
-
     LeaveTrace(**x_ant,**y_ant);
 
     switch (direction)
     {
     case 1: // ↑                
-        **y_ant -= 1;// La bouger
+        **y_ant -= 1;  // La bouger
         break;
     case 2: // ⬈
         **y_ant -= 1;
@@ -100,6 +100,20 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
         break;
     }
 
+    // Eviter colisions y
+    if(**y_ant < 0){
+        **y_ant = 0;
+    }else if(**y_ant > ROW_QTT){
+        **y_ant = ROW_QTT;
+    }
+    
+    // Eviter colisions x
+    if(**x_ant < 0){
+        **x_ant = 0;
+    }else if(**x_ant > COL_QTT){
+        **x_ant = COL_QTT;
+    }
+
     // La bouger effectivement;
     table[**y_ant][**x_ant] = F;
 }
@@ -127,7 +141,7 @@ int main(void){
     table[y_ini][x_ini] = F;
 
     
-    for (int i = 0; i < 12; i++){
+    for (int i = 0; i < 50; i++){
         // Nbre alèatoire de 1 a 9
         // 9 = pas de mouvement
         int nb = rand() % 9 + 1;
