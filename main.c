@@ -76,29 +76,13 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
     case 1: // ↑                
         **y_ant -= 1;  // La bouger
         break;
-    case 2: // ⬈
-        **y_ant -= 1;
+    case 2: // →
         **x_ant += 1;  
         break;
-    case 3: // →
-        **x_ant += 1;  
-        break;
-    case 4: // ⬊
-        **y_ant += 1;
-        **x_ant += 1;  
-        break;
-    case 5: // ↓
+    case 3: // ↓
         **y_ant += 1;
         break;
-    case 6: // ⬋
-        **y_ant += 1;
-        **x_ant -= 1; 
-        break;
-    case 7: // ←
-        **x_ant -= 1;  
-        break;
-    case 8: // ⬉
-        **y_ant -= 1;
+    case 4: // ←
         **x_ant -= 1;  
         break; 
     default:
@@ -159,7 +143,7 @@ int main(void){
     for (int i = 0; i < 50; i++){
         // Nbre alèatoire de 1 a 9
         // 9 = pas de mouvement
-        int nb = rand() % 9 + 1;
+        int nb = rand() % 4 + 1;
 
         // Enregistrer chaque nb dans un tableau
         // Le moins de pas le plus de pounts pour les chiffres
