@@ -38,24 +38,56 @@ void FillMap(){
     }
 }
 
+// Pour afficher des types differents de nourriture
+const char* GetFoodType(int noFood){
+    char* food;
+    switch (noFood)
+    {
+    case 1:
+        food = "🍣";
+        break;
+    case 2:
+        food = "🌮";
+        break;
+    case 3:
+        food = "🍝";
+        break;
+    case 4:
+        food = "🍔";
+        break;
+    case 5:
+        food = "🍕";
+        break;
+    case 6:
+        food = "🍰";
+        break;
+    case 7:
+        food = "🥬";
+        break;
+    case 8:
+        food = "🥟";
+        break;
+    default:
+        break;
+    }
+    
+    return food;
+}
+
 // Afficher le map
 void ShowMap(){
     //system("cls");  // Windows
     system("clear");  //*nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
-        for (int col = 0; col < COL_QTT; col++){
-            printf("%f",map[ligne][col].traceGO);
-            /*
-            if (table[ligne][col] == F){  // Afficher la fourmie où il y a la valeur de la fourmie
-                printf("🐜\t");
-            }else if(table[ligne][col] == FOOD){ // Nourriture 🍣 
-                printf("🍣\t");
-            }else if(table[ligne][col] == HOME){
+        for (int col = 0; col < COL_QTT; col++){            
+            // S'il y a de la nourriture, afficher son icone
+            if (map[ligne][col].food.qttOfFood >= 1){
+                printf("%s\t",GetFoodType(map[ligne][col].food.typeFood));            
+            }else if(map[ligne][col].isHome == true){
                 printf("🏠\t");
             }else{
-                printf("%f\t", table[ligne][col]);
-            }            
-            */
+                printf("%f\t",map[ligne][col].traceGO);
+            }
         }
         printf("\n");
     }
@@ -160,6 +192,22 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
     table[**y_ant][**x_ant] = F;
 }
 
+// Definir position et type aleatoire nourriture
+void PlaceFood(){    
+    int y_rand = rand() % (ROW_QTT-1) + 1;  // -1 pour pas dépasser la limite du tableau
+    int x_rand = rand() % (COL_QTT-1) + 1;
+
+    map[y_rand][x_rand].food.qttOfFood = 1;
+    // Choisir aleatoirement le type de la nourriture
+    map[y_rand][x_rand].food.typeFood = rand() % 8 + 1;
+}
+
+void PlaceHome(){
+    int y_rand = rand() % (ROW_QTT-1) + 1;  // -1 pour pas dépasser la limite du tableau
+    int x_rand = rand() % (COL_QTT-1) + 1;
+
+    map[y_rand][x_rand].isHome = true;
+}
 
 // Code principal
 int main(void){
@@ -211,8 +259,9 @@ int main(void){
 
 
     // Remplir le map avec la structure
-    //struct Block map[ROW_QTT][COL_QTT];
     FillMap();
+    PlaceFood();
+    PlaceHome();
     ShowMap();
 
 }
