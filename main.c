@@ -32,11 +32,42 @@ void FillMap(){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
             map[ligne][col].traceGO = 0.0;
+            map[ligne][col].traceRETURN = 0.0;
+            map[ligne][col].food.qttOfFood = 0.0;
         }
     }
 }
 
+// Afficher le map
+void ShowMap(){
+    //system("cls");  // Windows
+    system("clear");  //*nix (Mac aussi?)
+    for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int col = 0; col < COL_QTT; col++){
+            printf("%f",map[ligne][col].traceGO);
+            /*
+            if (table[ligne][col] == F){  // Afficher la fourmie où il y a la valeur de la fourmie
+                printf("🐜\t");
+            }else if(table[ligne][col] == FOOD){ // Nourriture 🍣 
+                printf("🍣\t");
+            }else if(table[ligne][col] == HOME){
+                printf("🏠\t");
+            }else{
+                printf("%f\t", table[ligne][col]);
+            }            
+            */
+        }
+        printf("\n");
+    }
+    sleep(1);  // "Buffer" Linux/Mac(?) 
+    //sleep(1000);  // "Buffer" Windows
+    // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 
+
+    //DryTrace();
+
+
+}
 
 // Afficher le tableau
 void ShowTable(){
@@ -177,16 +208,12 @@ int main(void){
     } 
     // Retourner à la maison 
 */
-    struct Block tester;
-    tester.testi = 3;
-    printf("%d ",tester.testi);
-    tester.testi = 8;
-    printf("%d ",tester.testi);
+
 
     // Remplir le map avec la structure
     //struct Block map[ROW_QTT][COL_QTT];
-    
-    map[0][0].
+    FillMap();
+    ShowMap();
 
 }
 

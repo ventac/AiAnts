@@ -13,10 +13,15 @@
 // Déclaration en globale pour l'instant
 float table[ROW_QTT][COL_QTT];
 
+struct Food{
+    int typeFood;
+    int qttOfFood;
+};
 
 struct Block{
     float traceGO;  // Quantité de phéromones placer en cherchant la nourriture
     float traceRETURN;  // Quantité de phéromones placer dans le retour
+    struct Food food;
     char lettre;
 };
 
