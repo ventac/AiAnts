@@ -20,14 +20,6 @@ void DryTrace();
 
 // Remplir le tableau avec 0 partout
 // TODO : Ajouter d'autres chiffres pour répresenter der murs/chemins plus complexes
-void FillTable(/*int * tableau[][]*/){
-    for (int ligne = 0; ligne < ROW_QTT; ligne++){
-        for (int col = 0; col < COL_QTT; col++){
-            table[ligne][col] = 0.0;
-        }
-    }
-}
-
 void FillMap(){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
@@ -101,36 +93,6 @@ void ShowMap(){
 
 }
 
-// Afficher le tableau
-void ShowTable(){
-    //system("cls");  // Windows
-    system("clear");  //*nix (Mac aussi?)
-    for (int ligne = 0; ligne < ROW_QTT; ligne++){
-        for (int col = 0; col < COL_QTT; col++){
-            if (table[ligne][col] == F){  // Afficher la fourmie où il y a la valeur de la fourmie
-                printf("🐜\t");
-            }else if(table[ligne][col] == FOOD){ // Nourriture 🍣 
-                printf("🍣\t");
-            }else if(table[ligne][col] == HOME){
-                printf("🏠\t");
-            }else{
-                printf("%f\t", table[ligne][col]);
-            }            
-            
-        }
-        printf("\n");
-    }
-    sleep(1);  // "Buffer" Linux/Mac(?) 
-    //sleep(1000);  // "Buffer" Windows
-    // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
-
-
-    DryTrace();
-
-
-}
-
-
 // Où la fourmis va laisser son trace
 /*void LeaveTrace(int x, int y){
     table[y][x] = table[y][x] - F + 1; // Efface la fourmis et ajoute la qtt
@@ -197,46 +159,46 @@ void DryTrace(){
 }*/
 
 
-void MoveAnt(struct Ant a){    
+void MoveAnt(struct Ant* a){    
 
-    LeaveTrace(a.ant_x,a.ant_y);
+    LeaveTrace(a->ant_x,a->ant_y);
 
     int direction = rand() % 4 + 1;
 
     switch (direction)
     {
     case 1: // ↑                
-        a.ant_y -= 1;  // La bouger
+        a->ant_y -= 1;  // La bouger
         break;
     case 2: // →
-        a.ant_x += 1;  
+        a->ant_x += 1;  
         break;
     case 3: // ↓
-        a.ant_y += 1;
+        a->ant_y += 1;
         break;
     case 4: // ←
-        a.ant_x -= 1;  
+        a->ant_x -= 1;  
         break; 
     default:
         break;
     }
 
     // Eviter colisions y
-    if(a.ant_y < 0){
-        a.ant_y = 0;
-    }else if(a.ant_y > ROW_QTT - 1){
-        a.ant_y = ROW_QTT - 1;
+    if(a->ant_y < 0){
+        a->ant_y = 0;
+    }else if(a->ant_y > ROW_QTT - 1){
+        a->ant_y = ROW_QTT - 1;
     }
     
     // Eviter colisions x
-    if(a.ant_x < 0){
-        a.ant_x = 0;
-    }else if(a.ant_x > COL_QTT - 1){
-        a.ant_x = COL_QTT - 1;
+    if(a->ant_x < 0){
+        a->ant_x = 0;
+    }else if(a->ant_x > COL_QTT - 1){
+        a->ant_x = COL_QTT - 1;
     }
 
     // La bouger effectivement;
-    //table[**y_ant][a.ant_x] = F;
+    //table[**y_ant][a->ant_x] = F;
 }
 
 // Definir position et type aleatoire nourriture
@@ -316,8 +278,7 @@ int main(void){
     PlaceFood();
     PlaceHome();
     ShowMap();
-    // Création de toutes les fourmis
-    struct Ant ant[ANT_QTT];
+    // Création de toutes les fourmis    
     for (int i=0;i<ANT_QTT;i++){
         ant[i].isAlive = true; 
         ant[i].hasFood = false;        
@@ -325,9 +286,10 @@ int main(void){
         ant[i].ant_y = home.home_y;        
     }
 
-    
-    MoveAnt(ant[0]);
-    ShowMap();
+    for (int i=0;i<50;i++){
+        MoveAnt(&ant[0]);
+        ShowMap();
+    }
 
 }
 

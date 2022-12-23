@@ -15,8 +15,8 @@
 // Déclaration en globale pour l'instant
 float table[ROW_QTT][COL_QTT];
 
-struct Ant{
-    // Bool has food;
+struct Ant //🐜
+{
     int ant_x;
     int ant_y;
     bool hasFood;
@@ -48,3 +48,4 @@ struct Block{
 // Définition objets uniques
 struct Block map[ROW_QTT][COL_QTT];
 struct Home home;
+struct Ant ant[ANT_QTT];
