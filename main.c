@@ -132,8 +132,12 @@ void ShowTable(){
 
 
 // Où la fourmis va laisser son trace
-void LeaveTrace(int x, int y){
+/*void LeaveTrace(int x, int y){
     table[y][x] = table[y][x] - F + 1; // Efface la fourmis et ajoute la qtt
+}*/
+
+void LeaveTrace(int x, int y){
+    map[y][x].traceGO = map[y][x].traceGO + 1;
 }
 
 // "Secher" ou la fourmis a passé dans chaque tour
@@ -193,46 +197,46 @@ void DryTrace(){
 }*/
 
 
-void MoveAnt(int **x_ant, int **y_ant){    
+void MoveAnt(struct Ant a){    
 
-    LeaveTrace(**x_ant,**y_ant);
+    LeaveTrace(a.ant_x,a.ant_y);
 
     int direction = rand() % 4 + 1;
 
     switch (direction)
     {
     case 1: // ↑                
-        **y_ant -= 1;  // La bouger
+        a.ant_y -= 1;  // La bouger
         break;
     case 2: // →
-        **x_ant += 1;  
+        a.ant_x += 1;  
         break;
     case 3: // ↓
-        **y_ant += 1;
+        a.ant_y += 1;
         break;
     case 4: // ←
-        **x_ant -= 1;  
+        a.ant_x -= 1;  
         break; 
     default:
         break;
     }
 
     // Eviter colisions y
-    if(**y_ant < 0){
-        **y_ant = 0;
-    }else if(**y_ant > ROW_QTT - 1){
-        **y_ant = ROW_QTT - 1;
+    if(a.ant_y < 0){
+        a.ant_y = 0;
+    }else if(a.ant_y > ROW_QTT - 1){
+        a.ant_y = ROW_QTT - 1;
     }
     
     // Eviter colisions x
-    if(**x_ant < 0){
-        **x_ant = 0;
-    }else if(**x_ant > COL_QTT - 1){
-        **x_ant = COL_QTT - 1;
+    if(a.ant_x < 0){
+        a.ant_x = 0;
+    }else if(a.ant_x > COL_QTT - 1){
+        a.ant_x = COL_QTT - 1;
     }
 
     // La bouger effectivement;
-    table[**y_ant][**x_ant] = F;
+    //table[**y_ant][a.ant_x] = F;
 }
 
 // Definir position et type aleatoire nourriture
@@ -254,6 +258,8 @@ void PlaceHome(){
     home.home_x = x_rand;
     home.home_y = y_rand;
 }
+
+void CreateAnts();
 
 // Code principal
 int main(void){
@@ -303,6 +309,13 @@ int main(void){
     // Retourner à la maison 
 */
 
+
+
+    // Remplir le map avec la structure
+    FillMap();
+    PlaceFood();
+    PlaceHome();
+    ShowMap();
     // Création de toutes les fourmis
     struct Ant ant[ANT_QTT];
     for (int i=0;i<ANT_QTT;i++){
@@ -312,10 +325,8 @@ int main(void){
         ant[i].ant_y = home.home_y;        
     }
 
-    // Remplir le map avec la structure
-    FillMap();
-    PlaceFood();
-    PlaceHome();
+    
+    MoveAnt(ant[0]);
     ShowMap();
 
 }
