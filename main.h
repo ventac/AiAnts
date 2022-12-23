@@ -17,10 +17,18 @@ float table[ROW_QTT][COL_QTT];
 
 struct Ant{
     // Bool has food;
-    //int ant_x;
-    //int ant_y;
+    int ant_x;
+    int ant_y;
     bool hasFood;
+    bool isAlive;
 };
+
+struct Home
+{
+    int home_x;
+    int home_y;
+};
+
 
 struct Food{
     int typeFood;
@@ -37,4 +45,6 @@ struct Block{
     bool isHome;
 };
 
+// Définition objets uniques
 struct Block map[ROW_QTT][COL_QTT];
+struct Home home;

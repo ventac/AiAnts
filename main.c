@@ -39,9 +39,9 @@ void FillMap(){
 }
 
 // Pour afficher des types differents de nourriture
-const char* GetFoodType(int noFood){
+const char* GetFoodType(int nbFood){
     char* food;
-    switch (noFood)
+    switch (nbFood)
     {
     case 1:
         food = "🍣";
@@ -82,9 +82,9 @@ void ShowMap(){
         for (int col = 0; col < COL_QTT; col++){            
             // S'il y a de la nourriture, afficher son icone
             if (map[ligne][col].food.qttOfFood >= 1){
-                printf("%s\t",GetFoodType(map[ligne][col].food.typeFood));            
+                printf("%s\t\t",GetFoodType(map[ligne][col].food.typeFood));            
             }else if(map[ligne][col].isHome == true){
-                printf("🏠\t");
+                printf("🏠\t\t");
             }else{
                 printf("%f\t",map[ligne][col].traceGO);
             }
@@ -152,9 +152,52 @@ void DryTrace(){
 // Futurement: void MoveAnt(int direction, ant ant, pris nourriture? TRUE/FALSE -> Augmente le
 // score/ qtt trace)
 // Mouvement pour chercher la nouriture. Après la trouver, elle va utiliser le trace pour rétourner
-void MoveAnt(int direction, int **x_ant, int **y_ant){    
+/*void MoveAnt(int direction, int **x_ant, int **y_ant){    
 
     LeaveTrace(**x_ant,**y_ant);
+
+    switch (direction)
+    {
+    case 1: // ↑                
+        **y_ant -= 1;  // La bouger
+        break;
+    case 2: // →
+        **x_ant += 1;  
+        break;
+    case 3: // ↓
+        **y_ant += 1;
+        break;
+    case 4: // ←
+        **x_ant -= 1;  
+        break; 
+    default:
+        break;
+    }
+
+    // Eviter colisions y
+    if(**y_ant < 0){
+        **y_ant = 0;
+    }else if(**y_ant > ROW_QTT - 1){
+        **y_ant = ROW_QTT - 1;
+    }
+    
+    // Eviter colisions x
+    if(**x_ant < 0){
+        **x_ant = 0;
+    }else if(**x_ant > COL_QTT - 1){
+        **x_ant = COL_QTT - 1;
+    }
+
+    // La bouger effectivement;
+    table[**y_ant][**x_ant] = F;
+}*/
+
+
+void MoveAnt(int **x_ant, int **y_ant){    
+
+    LeaveTrace(**x_ant,**y_ant);
+
+    int direction = rand() % 4 + 1;
 
     switch (direction)
     {
@@ -196,17 +239,20 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
 void PlaceFood(){    
     int y_rand = rand() % (ROW_QTT-1) + 1;  // -1 pour pas dépasser la limite du tableau
     int x_rand = rand() % (COL_QTT-1) + 1;
+    srand (time(NULL));  // Eviter que le même no de debut se repet (changement de seed)
+    int typeFood = rand() % 8 + 1;  // Choisir aleatoirement le type de la nourriture    
 
-    map[y_rand][x_rand].food.qttOfFood = 1;
-    // Choisir aleatoirement le type de la nourriture
-    map[y_rand][x_rand].food.typeFood = rand() % 8 + 1;
+    map[y_rand][x_rand].food.qttOfFood = 1;   
+    map[y_rand][x_rand].food.typeFood = typeFood;
 }
 
 void PlaceHome(){
     int y_rand = rand() % (ROW_QTT-1) + 1;  // -1 pour pas dépasser la limite du tableau
     int x_rand = rand() % (COL_QTT-1) + 1;
 
-    map[y_rand][x_rand].isHome = true;
+    map[y_rand][x_rand].isHome = true;    
+    home.home_x = x_rand;
+    home.home_y = y_rand;
 }
 
 // Code principal
@@ -257,6 +303,14 @@ int main(void){
     // Retourner à la maison 
 */
 
+    // Création de toutes les fourmis
+    struct Ant ant[ANT_QTT];
+    for (int i=0;i<ANT_QTT;i++){
+        ant[i].isAlive = true; 
+        ant[i].hasFood = false;        
+        ant[i].ant_x = home.home_x;
+        ant[i].ant_y = home.home_y;        
+    }
 
     // Remplir le map avec la structure
     FillMap();
