@@ -33,6 +33,8 @@ struct Home
 struct Food{
     int typeFood;
     int qttOfFood;
+    int food_x;
+    int food_y;
 };
 
 // Struct home?
@@ -48,4 +50,5 @@ struct Block{
 // Définition objets uniques
 struct Block map[ROW_QTT][COL_QTT];
 struct Home home;
+struct Food food;
 struct Ant ant[ANT_QTT];

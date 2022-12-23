@@ -78,7 +78,7 @@ void ShowMap(){
             }else if(map[ligne][col].isHome == true){
                 printf("🏠\t\t");
             }else{
-                printf("%f\t",map[ligne][col].traceGO);
+                printf("%1f\t",map[ligne][col].traceGO);
             }
         }
         printf("\n");
@@ -88,7 +88,7 @@ void ShowMap(){
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 
 
-    //DryTrace();
+    DryTrace();
 
 
 }
@@ -98,72 +98,63 @@ void ShowMap(){
     table[y][x] = table[y][x] - F + 1; // Efface la fourmis et ajoute la qtt
 }*/
 
-void LeaveTrace(int x, int y){
-    map[y][x].traceGO = map[y][x].traceGO + 1;
+void LeaveTrace(int x, int y,bool hasFood){
+    // Si elle n'a pas encore trouvée la nourriture, elle déposite
+    // les phéromones de recherche, sinon, les phéromones de retour
+    if (hasFood == false){
+        map[y][x].traceGO = map[y][x].traceGO + 1;
+    }else{
+        map[y][x].traceRETURN = map[y][x].traceRETURN + 1;
+    }    
 }
 
 // "Secher" ou la fourmis a passé dans chaque tour
 void DryTrace(){
   for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
-            if ((table[ligne][col] < HOME) && (table[ligne][col] > 0)){
-                table[ligne][col] = table[ligne][col] - 0.01;
+            if (map[ligne][col].isHome == false){
+                if (map[ligne][col].traceGO > 0){
+                map[ligne][col].traceGO -= 0.01;
+                }
+                if (map[ligne][col].traceRETURN > 0){
+                map[ligne][col].traceRETURN -= 0.01;
+                }
             }
         }
     }
 }
 
-// Random va définir la direction au début
-// TODO :  Ajouter ça dans une Structure ant
-// Futurement: void MoveAnt(int direction, ant ant, pris nourriture? TRUE/FALSE -> Augmente le
-// score/ qtt trace)
-// Mouvement pour chercher la nouriture. Après la trouver, elle va utiliser le trace pour rétourner
-/*void MoveAnt(int direction, int **x_ant, int **y_ant){    
+// Régarder en haut, bas, droite et gauche pour trouver la méilieure direction où aller
+int Search(int x, int y, bool hasFood){
 
-    LeaveTrace(**x_ant,**y_ant);
+    int biggest = 0;
 
-    switch (direction)
-    {
-    case 1: // ↑                
-        **y_ant -= 1;  // La bouger
-        break;
-    case 2: // →
-        **x_ant += 1;  
-        break;
-    case 3: // ↓
-        **y_ant += 1;
-        break;
-    case 4: // ←
-        **x_ant -= 1;  
-        break; 
-    default:
-        break;
-    }
+    //if 
+    // S'il y a de la nourriture, chercher le plus grand traceGO
 
-    // Eviter colisions y
-    if(**y_ant < 0){
-        **y_ant = 0;
-    }else if(**y_ant > ROW_QTT - 1){
-        **y_ant = ROW_QTT - 1;
-    }
-    
-    // Eviter colisions x
-    if(**x_ant < 0){
-        **x_ant = 0;
-    }else if(**x_ant > COL_QTT - 1){
-        **x_ant = COL_QTT - 1;
-    }
+    // Sinon, le traceRETURN
 
-    // La bouger effectivement;
-    table[**y_ant][**x_ant] = F;
-}*/
+    // Dire la direction
+    //return
+}
 
-
+// Bouger la fourmis
 void MoveAnt(struct Ant* a){    
 
-    LeaveTrace(a->ant_x,a->ant_y);
+    LeaveTrace(a->ant_x,a->ant_y,a->hasFood);
+    int direction;
 
-    int direction = rand() % 4 + 1;
+
+
+
+    // Si hasFood == false -> random, sinon, detecter
+    if (a->hasFood==false){
+        direction = rand() % 4 + 1;
+    }else{
+        // Detecter le meilleur chemin, le plus récent
+        // mais sans révénir en arrière
+        direction = rand() % 4 + 1;
+    }
 
     switch (direction)
     {
@@ -197,6 +188,11 @@ void MoveAnt(struct Ant* a){
         a->ant_x = COL_QTT - 1;
     }
 
+    //Trouvé nourriture? Activer mode retour
+    if ((a->ant_x == food.food_x) && (a->ant_y == food.food_y)){
+        a->hasFood = true;
+    }
+
     // La bouger effectivement;
     //table[**y_ant][a->ant_x] = F;
 }
@@ -210,6 +206,8 @@ void PlaceFood(){
 
     map[y_rand][x_rand].food.qttOfFood = 1;   
     map[y_rand][x_rand].food.typeFood = typeFood;
+    food.food_x = x_rand;
+    food.food_y = y_rand;
 }
 
 void PlaceHome(){
@@ -287,6 +285,7 @@ int main(void){
     }
 
     for (int i=0;i<50;i++){
+        // For chaque fourmis
         MoveAnt(&ant[0]);
         ShowMap();
     }
