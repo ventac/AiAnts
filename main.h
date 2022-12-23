@@ -11,6 +11,13 @@
 #define HOME 997
 
 // Déclaration en globale pour l'instant
-int table[ROW_QTT][COL_QTT];
+float table[ROW_QTT][COL_QTT];
 
 
+struct Block{
+    float traceGO;  // Quantité de phéromones placer en cherchant la nourriture
+    float traceRETURN;  // Quantité de phéromones placer dans le retour
+    char lettre;
+};
+
+struct Block map[ROW_QTT][COL_QTT];

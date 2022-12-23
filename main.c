@@ -5,13 +5,12 @@
 #include <unistd.h>  // Pour Linux (Et mac?)
 // TODO: Verifier comment détecter automatiquement le S.O.
 
-#include "AiAnts.h"
+#include "main.h"
 
+// Définition des fonctions Ant
+void DryTrace();
 
-
-// TODO: Avant de prendre la nourriture, plus probable d'aller à la droite. Après, plus probable à gauche
 // TODO: La nourriture va changer de place et d'icone, pas la maison
-
 
 // On peut d'abbord mettre toutes les fonctions ici et après on les catégorise et déplace
 // dans des "Objets" si ça c'est possible en C, comme Obj Fourmis (move ant, AntPosition),
@@ -19,15 +18,25 @@
 // (qtt nourriture)
 
 
-// Remplir le tableau avec 1 partout
+// Remplir le tableau avec 0 partout
 // TODO : Ajouter d'autres chiffres pour répresenter der murs/chemins plus complexes
 void FillTable(/*int * tableau[][]*/){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){
-            table[ligne][col] = 0;
+            table[ligne][col] = 0.0;
         }
     }
 }
+
+void FillMap(){
+    for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int col = 0; col < COL_QTT; col++){
+            map[ligne][col].traceGO = 0.0;
+        }
+    }
+}
+
+
 
 // Afficher le tableau
 void ShowTable(){
@@ -42,7 +51,7 @@ void ShowTable(){
             }else if(table[ligne][col] == HOME){
                 printf("🏠\t");
             }else{
-                printf("%d\t", table[ligne][col]);
+                printf("%f\t", table[ligne][col]);
             }            
             
         }
@@ -51,6 +60,11 @@ void ShowTable(){
     sleep(1);  // "Buffer" Linux/Mac(?) 
     //sleep(1000);  // "Buffer" Windows
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
+
+
+    DryTrace();
+
+
 }
 
 
@@ -60,7 +74,15 @@ void LeaveTrace(int x, int y){
 }
 
 // "Secher" ou la fourmis a passé dans chaque tour
-void DryTrace();
+void DryTrace(){
+  for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int col = 0; col < COL_QTT; col++){
+            if ((table[ligne][col] < HOME) && (table[ligne][col] > 0)){
+                table[ligne][col] = table[ligne][col] - 0.01;
+            }
+        }
+    }
+}
 
 // Random va définir la direction au début
 // TODO :  Ajouter ça dans une Structure ant
@@ -92,15 +114,15 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
     // Eviter colisions y
     if(**y_ant < 0){
         **y_ant = 0;
-    }else if(**y_ant > ROW_QTT){
-        **y_ant = ROW_QTT;
+    }else if(**y_ant > ROW_QTT - 1){
+        **y_ant = ROW_QTT - 1;
     }
     
     // Eviter colisions x
     if(**x_ant < 0){
         **x_ant = 0;
-    }else if(**x_ant > COL_QTT){
-        **x_ant = COL_QTT;
+    }else if(**x_ant > COL_QTT - 1){
+        **x_ant = COL_QTT - 1;
     }
 
     // La bouger effectivement;
@@ -111,7 +133,7 @@ void MoveAnt(int direction, int **x_ant, int **y_ant){
 // Code principal
 int main(void){
 
-
+/*
     FillTable();
     ShowTable();
     
@@ -154,12 +176,17 @@ int main(void){
         ShowTable(); 
     } 
     // Retourner à la maison 
+*/
+    struct Block tester;
+    tester.testi = 3;
+    printf("%d ",tester.testi);
+    tester.testi = 8;
+    printf("%d ",tester.testi);
 
-
-
-
-
-
+    // Remplir le map avec la structure
+    //struct Block map[ROW_QTT][COL_QTT];
+    
+    map[0][0].
 
 }
 
