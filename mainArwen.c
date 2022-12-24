@@ -12,24 +12,13 @@
 #include "Ant.h"
 #include "Buffer.h"
 
-
-/*
-//#include <system>
-// Définition des dimensions du tableau
-#define F 500  // ça va répresenter numériquement la fourmis, on peut changer après par -1
-#define QTT_ANTC 1
-#define COL_QTT 8
-#define ROW_QTT 8
-#define ANT 500
-*/
-
-
-
 // Code principal
 int main(void){
 
     // creating the map
-    struct Tile map[ROW_QTT][COL_QTT];
+    Map *map = malloc(ROW_QTT * sizeof(Map));
+    map->tile = malloc(COL_QTT * sizeof(Tile*));
+
 
     int n = 1; // number of ants on the map at once
     // list containing all ants
@@ -37,16 +26,16 @@ int main(void){
 
     pos[0].pos_x = 0;
     pos[0].pos_y = 0;
+    printf("%d",pos[0].pos_x);
 
 
-
-    FillTable(map);
+    FillTable(*map);
 
     //FillTable(map,ROW_QTT,ROW_QTT);
-    //ShowTable();
+    ShowTable(*map);
 
 
-
+/*
     // Pour tester, la position initielle sera le coin inférieur gauche (8,0)
     // et l'objectif sera le coin supérieur droite (0,8)
 
@@ -69,6 +58,7 @@ int main(void){
         //ShowTable(map);
 
     }
+    */
 }
 
 

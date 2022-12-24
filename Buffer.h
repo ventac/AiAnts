@@ -9,8 +9,8 @@
 #include "AiAnts.h"
 
 
-void ShowTable(struct Tile *map);
-struct Tile FillTable(struct Tile *map);
+void ShowTable(struct Tile **map[]);
+void FillTable(struct Tile **map[]);
 
 
 
