@@ -16,9 +16,8 @@
 int main(void){
 
     // creating the map
-    Map *map = malloc(ROW_QTT * sizeof(Map));
-    map->tile = malloc(COL_QTT * sizeof(Tile*));
-
+    
+    
 
     int n = 1; // number of ants on the map at once
     // list containing all ants
@@ -29,10 +28,11 @@ int main(void){
     printf("%d",pos[0].pos_x);
 
 
-    FillTable(*map);
+
+    //FillTable(&map);
 
     //FillTable(map,ROW_QTT,ROW_QTT);
-    ShowTable(*map);
+    //ShowTable(&map);
 
 
 /*

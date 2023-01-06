@@ -34,7 +34,7 @@ typedef struct Tile{
 typedef struct Map{
     int width;
     int lenght;
-    Tile** tile;
+    Tile tile;
 }Map;
 
 #endif

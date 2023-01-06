@@ -2,12 +2,12 @@
 #include "AiAnts.h"
 
 // Afficher le tableau
-void ShowTable(struct Tile **map[]){
+void ShowTable(Map **map){
     //system("cls");  // Windows
     system("clear");  //nix (Mac aussi?)
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int colone = 0; colone < COL_QTT; colone++){
-            if (map[ligne][colone]->num_toFood == 1)
+            if (map[ligne]->tile[colone]->num_toFood == 1)
                 printf("o \t");
         }
         printf("\n");
@@ -16,11 +16,10 @@ void ShowTable(struct Tile **map[]){
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
 }
 
-void FillTable(struct Tile **map[]){
+void FillTable(Map **map){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int colone = 0; colone < COL_QTT; colone++){
-            map[ligne][colone]->num_toFood = 1;
-            printf("%d",map[ligne][colone]->num_toFood);
+            map[ligne]->tile[colone]->num_toFood = 1;
         }
     }
 }
