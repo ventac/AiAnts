@@ -6,6 +6,7 @@
 // TODO: Verifier comment détecter automatiquement le S.O.
 
 #include "main.h"
+#include <time.h>
 
 // Définition des fonctions Ant
 void DryTrace();
@@ -18,7 +19,7 @@ void DryTrace();
 // (qtt nourriture)
 
 
-// Remplir le tableau avec 0 partout
+// Remplir le tableau avec 0 dans tous les paramètres
 // TODO : Ajouter d'autres chiffres pour répresenter der murs/chemins plus complexes
 void FillMap(){
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
@@ -210,6 +211,7 @@ void PlaceFood(){
     food.food_y = y_rand;
 }
 
+// Définir la position de la maison de manière aléatoire
 void PlaceHome(){
     int y_rand = rand() % (ROW_QTT-1) + 1;  // -1 pour pas dépasser la limite du tableau
     int x_rand = rand() % (COL_QTT-1) + 1;
