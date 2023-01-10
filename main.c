@@ -130,6 +130,29 @@ int Search(int x, int y, bool hasFood){
 
     int biggest = 0;
 
+    // Régarder en haut, bas, droite, gauche. 
+    // Si trouve pas, va en random
+    if (map[x][y-1].traceRETURN>biggest){  // ↑
+        biggest = map[x][y-1].traceRETURN;
+        return 1; // retourner la direction    
+    } else if (map[x+1][y].traceRETURN>biggest){  // →
+        biggest = map[x+1][y].traceRETURN;
+        return 2;   
+    } else if (map[x][y+1].traceRETURN>biggest){  // ↓
+        biggest = map[x][y+1].traceRETURN;
+        return 3;   
+    } else if (map[x-1][y].traceRETURN>biggest){  // ←
+        biggest = map[x-1][y].traceRETURN;
+        return 4;   
+    } else return rand() % 4 + 1;
+
+    
+    // Si trouve pas, va en random, si biggest reste a 0
+
+
+    // Si ser la nourriture, aller direct
+
+
     //if 
     // S'il y a de la nourriture, chercher le plus grand traceGO
 
@@ -154,12 +177,12 @@ void MoveAnt(struct Ant* a){
     }else{
         // Detecter le meilleur chemin, le plus récent
         // mais sans révénir en arrière
-        direction = rand() % 4 + 1;
+        direction = Search(a->ant_x,a->ant_y,a->hasFood);
     }
 
     switch (direction)
     {
-    case 1: // ↑                
+    case 1: // ↑
         a->ant_y -= 1;  // La bouger
         break;
     case 2: // →

@@ -43,7 +43,7 @@ struct Block{
     float traceGO;  // Quantité de phéromones placés en cherchant la nourriture
     float traceRETURN;  // Quantité de phéromones placés dans le retour
     struct Food food;
-    struct Ant ant[ANT_QTT];  // Array pour pouvoir avoir plusieures dans le même block
+    //struct Ant ant[ANT_QTT];  // Array pour pouvoir avoir plusieures dans le même block
     bool isHome;
 };
 
