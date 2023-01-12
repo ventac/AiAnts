@@ -71,6 +71,7 @@ const char* GetFoodType(int nbFood){
 void ShowMap(){
     //system("cls");  // Windows
     system("clear");  //*nix (Mac aussi?)
+    printf("TraceGO:\n");
     for (int ligne = 0; ligne < ROW_QTT; ligne++){
         for (int col = 0; col < COL_QTT; col++){            
             // S'il y a de la nourriture, afficher son icone
@@ -84,6 +85,31 @@ void ShowMap(){
         }
         printf("\n");
     }
+
+    /// TEMPORAIRE
+    // Afficher le map avec le trace retour
+    printf("\n");
+    printf("\n");
+    printf("TraceRETURN:\n");
+    for (int ligne = 0; ligne < ROW_QTT; ligne++){
+        for (int col = 0; col < COL_QTT; col++){            
+            // S'il y a de la nourriture, afficher son icone
+            if (map[ligne][col].food.qttOfFood >= 1){
+                printf("%s\t\t",GetFoodType(map[ligne][col].food.typeFood));            
+            }else if(map[ligne][col].isHome == true){
+                printf("🏠\t\t");
+            }else{
+                printf("%1f\t",map[ligne][col].traceRETURN);
+            }
+        }
+        printf("\n");
+    }
+    /// END TEMPORAIRE
+
+
+
+
+
     sleep(1);  // "Buffer" Linux/Mac(?) 
     //sleep(1000);  // "Buffer" Windows
     // IMPORTANT : Sur Linux/Mac(?) c'est en secondes, sur Win c'est en milisecondes
@@ -129,22 +155,59 @@ void DryTrace(){
 int Search(int x, int y, bool hasFood){
 
     int biggest = 0;
+    char direction;
+    // Chercher le plus grand
+    int biggestGO = 0;
 
+
+    
+    if (map[x][y-1].traceRETURN>map[x+1][y].traceRETURN>biggest){
+        biggest = map[x+1][y].traceRETURN>biggest;
+        if (map[x][y-1].traceRETURN>map[x+1][y].traceRETURN>biggest){
+            biggest = map[x+1][y].traceRETURN>biggest;
+        }
+        
+        
+        direction = 'u';
+    }
+
+    // Si elle n'as pas de nouriture, chercher le trace de la derniere fourmis
     // Régarder en haut, bas, droite, gauche. 
     // Si trouve pas, va en random
-    if (map[x][y-1].traceRETURN>biggest){  // ↑
+    if (hasFood == false){
         biggest = map[x][y-1].traceRETURN;
-        return 1; // retourner la direction    
-    } else if (map[x+1][y].traceRETURN>biggest){  // →
-        biggest = map[x+1][y].traceRETURN;
-        return 2;   
-    } else if (map[x][y+1].traceRETURN>biggest){  // ↓
-        biggest = map[x][y+1].traceRETURN;
-        return 3;   
-    } else if (map[x-1][y].traceRETURN>biggest){  // ←
-        biggest = map[x-1][y].traceRETURN;
-        return 4;   
-    } else return rand() % 4 + 1;
+        if ((map[x][y-1].traceRETURN>biggest || map[x][y-1].food.qttOfFood > 0) && map[x][y-1].traceGO < 2){  // ↑
+            biggest = map[x][y-1].traceRETURN;  // < 2 pour éviter quelle reste trop de temps dans les mêmes places
+            return 1; // retourner la direction    
+        } else if ((map[x+1][y].traceRETURN>biggest || map[x+1][y].food.qttOfFood > 0) && map[x+1][y].traceGO < 2){  // →
+            biggest = map[x+1][y].traceRETURN;
+            return 2;   
+        } else if ((map[x][y+1].traceRETURN>biggest || map[x][y+1].food.qttOfFood > 0) && map[x][y+1].traceGO < 2){  // ↓
+            biggest = map[x][y+1].traceRETURN;
+            return 3;   
+        } else if ((map[x-1][y].traceRETURN>biggest || map[x-1][y].food.qttOfFood > 0) && map[x-1][y].traceGO < 2){  // ←
+            biggest = map[x-1][y].traceRETURN;
+            return 4;   
+        } else return rand() % 4 + 1;
+    }else{ // Si elle a la nourriture, regarder le trace aller
+    biggest = map[x][y-1].traceGO;
+        if ((map[x][y-1].traceGO>biggest || map[x][y-1].isHome == true) && map[x][y-1].traceRETURN < 2){  // ↑
+            biggest = map[x][y-1].traceGO;
+            return 1; // retourner la direction    
+        } else if ((map[x+1][y].traceGO>biggest || map[x+1][y].isHome == true) && map[x+1][y].traceRETURN < 2){  // →
+            biggest = map[x+1][y].traceGO;
+            return 2;   
+        } else if ((map[x][y+1].traceGO>biggest || map[x][y+1].isHome == true) && map[x][y+1].traceRETURN < 2){  // ↓
+            biggest = map[x][y+1].traceGO;
+            return 3;   
+        } else if ((map[x-1][y].traceGO>biggest || map[x-1][y].isHome == true) && map[x-1][y].traceRETURN < 2){  // ←
+            biggest = map[x-1][y].traceGO;
+            return 4;   
+        } else return rand() % 4 + 1;
+    }
+
+    // Quand arrive a la maison hasFood = 0
+
 
     
     // Si trouve pas, va en random, si biggest reste a 0
@@ -169,16 +232,11 @@ void MoveAnt(struct Ant* a){
     int direction;
 
 
-
-
     // Si hasFood == false -> random, sinon, detecter
-    if (a->hasFood==false){
-        direction = rand() % 4 + 1;
-    }else{
-        // Detecter le meilleur chemin, le plus récent
-        // mais sans révénir en arrière
-        direction = Search(a->ant_x,a->ant_y,a->hasFood);
-    }
+    // Detecter le meilleur chemin, le plus récent
+    // mais sans révénir en arrière
+    direction = Search(a->ant_x,a->ant_y,a->hasFood);
+    
 
     switch (direction)
     {
@@ -195,6 +253,7 @@ void MoveAnt(struct Ant* a){
         a->ant_x -= 1;  
         break; 
     default:
+        //a->ant_y -= 1;
         break;
     }
 
@@ -212,10 +271,15 @@ void MoveAnt(struct Ant* a){
         a->ant_x = COL_QTT - 1;
     }
 
-    //Trouvé nourriture? Activer mode retour
+    // Trouvé nourriture? Activer mode retour
     if ((a->ant_x == food.food_x) && (a->ant_y == food.food_y)){
         a->hasFood = true;
+    // Ramenée a la maison? Activer mode recherche
+    } else if ((a->ant_x == home.home_x) && (a->ant_y == home.home_y)){
+        a->hasFood = false;
     }
+
+    
 
     // La bouger effectivement;
     //table[**y_ant][a->ant_x] = F;
