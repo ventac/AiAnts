@@ -4,40 +4,39 @@
 // Définition des dimensions du tableau
 #define COL_QTT 8
 #define ROW_QTT 8
-#define ANT_QTT 1  // Quantité maximale de fourmis, pour exister et exister dans la meme place
-#define F 999  // Ca va répresenter numériquement la fourmis, on peut changer après par -1
-               // le plus important est que ce soit un chiffre qui on n'arrive pas 
-               // simplement avec le trace de la fourmis
-#define FOOD 998
-#define HOME 997
-
+#define ANT_QTT 2  // Quantité maximale de fourmis, pour exister et exister dans la meme place
+#define TRACE_GO_QTT 0.5
+#define TRACE_RETURN_QTT 0.5
+#define QTT_FOOD_ANT_CAN_TAKE 0.1
+#define CYCLES 200
 
 // Déclaration en globale pour l'instant
 float table[ROW_QTT][COL_QTT];
 
-struct Ant //🐜
+struct Ant // 🐜
 {
     int ant_x;
     int ant_y;
     bool hasFood;
     bool isAlive;
+    int steps;  // Compter la quantité de pas
+    int lastDirection;
+    float qttOfFood;
 };
 
 struct Home
 {
     int home_x;
     int home_y;
+    float qttOfFood;
 };
-
 
 struct Food{
     int typeFood;
-    int qttOfFood;
+    float qttOfFood;
     int food_x;
     int food_y;
 };
-
-// Struct home?
 
 struct Block{
     float traceGO;  // Quantité de phéromones placés en cherchant la nourriture
@@ -45,6 +44,9 @@ struct Block{
     struct Food food;
     //struct Ant ant[ANT_QTT];  // Array pour pouvoir avoir plusieures dans le même block
     bool isHome;
+    // Pour measurer la quantité de pas
+    int stepsFromHome;  // Distance de la maison
+    int stepsFromFood;  // Distance de la nourriture
 };
 
 // Définition objets uniques
