@@ -2,7 +2,7 @@
 #include <stdbool.h>
 
 // Définition des dimensions du tableau
-#define COL_QTT 8
+#define COL_QTT 3
 #define ROW_QTT 8
 #define ANT_QTT 2  // Quantité maximale de fourmis, pour exister et exister dans la meme place
 #define TRACE_GO_QTT 0.5

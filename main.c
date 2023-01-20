@@ -10,6 +10,8 @@
 
 // Définition des fonctions Ant
 void DryTrace();
+int RandomNb(int lower, int upper);
+float qttFoodG;
 
 // TODO: La nourriture va changer de place et d'icone, pas la maison
 
@@ -19,9 +21,12 @@ void DryTrace();
 // (qtt nourriture)
 
 // numbers in range [lower, upper].
-int RamdomNb(int lower, int upper){   
-    srand (time(NULL)); // Eviter que le même no de debut se repet (changement de seed)
+int RandomNb(int lower, int upper){   
+    // Eviter que le même no de debut se repet (changement de seed)
+    srand(clock());  
     int num = (rand() %(upper - lower + 1)) + lower;
+    srand(clock());   /* seconds since program start */
+    //srand (time(NULL)); 
     return num;
 }
 
@@ -88,6 +93,7 @@ void ShowMap(){
             if (map[ligne][col].food.qttOfFood > 0){
                 printf("%s\t\t",GetFoodType(map[ligne][col].food.typeFood));            
                 qttFood = map[ligne][col].food.qttOfFood;
+                qttFoodG = qttFood;
             }else if(map[ligne][col].isHome == true){
                 printf("🏠\t\t");
 
@@ -267,17 +273,20 @@ int Search(int x, int y, bool hasFood,int lastDirection){
         // Éviter d'aller deux fois dans le meme block
 
         // Trouver la plus grand valeur
-        biggest = a;
-        if (lastDirection != 1) directionB = 1; // ↑
-        if (b > biggest && lastDirection != 2){
-            biggest = b;
-            directionB = 2; // → 
-        }else if (c > biggest && lastDirection != 3){
-            biggest = c;
-            directionB = 3; // ↓
-        }else if (d > biggest && lastDirection != 4){
-            biggest = d;
-            directionB = 4; // ←
+        if ((a != 0) || (b != 0) || (c != 0) || (d != 0)){            
+            biggest = a;
+            if (lastDirection != 1 && lastDirection != 3){
+                directionB = 1;  // ↑
+            }else if (b > biggest && lastDirection != 4){
+                biggest = b;
+                directionB = 2;  // → 
+            }else if (c > biggest && lastDirection != 1){
+                biggest = c;
+                directionB = 3;  // ↓
+            }else if (d > biggest && lastDirection != 2){
+                biggest = d;
+                directionB = 4;  // ←
+            }
         }
 
         //if(directionS == directionB) direction = 
@@ -288,10 +297,16 @@ int Search(int x, int y, bool hasFood,int lastDirection){
 
 
         // Si trouve pas (si biggest reste a 0), va en random.
-        if (biggest == 0) direction = RandomNb(1,4);
+        if (biggest == 0) direction = RandomNb(0,4);
+
+        
         // Éviter la répétition de la valeur rétournée par random.
-        while (direction == lastDirection){
-            direction = RamdomNb(1,4);
+        
+        while ((direction == 1 && lastDirection==3) 
+        || (direction == 3 && lastDirection==1) 
+        || (direction == 2 && lastDirection==4) 
+        || (direction == 4 && lastDirection==2)){
+            direction = RandomNb(1,4);
         }
 
     }
@@ -312,7 +327,7 @@ int Search(int x, int y, bool hasFood,int lastDirection){
 void MoveAnt(struct Ant* a){    
 
     LeaveTrace(a->ant_x,a->ant_y,a->hasFood,a->steps);
-    int direction;
+    int direction = 0;
 
 
     // Si hasFood == false -> random, sinon, detecter
@@ -380,9 +395,9 @@ void MoveAnt(struct Ant* a){
 
 // Definir position et type aleatoire nourriture
 void PlaceFood(){    
-    int y_rand = RamdomNb(1,ROW_QTT-1);  // -1 pour pas dépasser la limite du tableau
-    int x_rand = RamdomNb(1,COL_QTT-1);
-    int typeFood = RamdomNb(1,8);  // Choisir aleatoirement le type de la nourriture    
+    int y_rand = RandomNb(1,ROW_QTT-1);  // -1 pour pas dépasser la limite du tableau
+    int x_rand = RandomNb(1,COL_QTT-1);
+    int typeFood = RandomNb(1,8);  // Choisir aleatoirement le type de la nourriture    
 
     map[y_rand][x_rand].food.qttOfFood = 1;   
     map[y_rand][x_rand].food.typeFood = typeFood;
@@ -420,13 +435,25 @@ int main(void){
         ant[i].ant_x = home.home_x;
         ant[i].ant_y = home.home_y;        
     }
-
+/*
     ShowMap();
     for (int i=0;i<CYCLES;i++){
         // For chaque fourmis
         MoveAnt(&ant[0]);
         ShowMap();
-    }
+
+        printf("\tSteps : %d \n", i);
+    }*/
+
+    int Steps;
+    do {
+        // For chaque fourmis
+        MoveAnt(&ant[0]);
+        ShowMap();
+        Steps++;
+        printf("\tSteps : %d \n", Steps);
+
+    }while(qttFoodG>0);
 
 }
 
